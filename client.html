@@ -1,0 +1,17 @@
+var active = false;
+var lastClick = 0;
+var interval = 1000 / 30; // 30 CPS calculation
+
+ModAPI.addEventListener("key", (data) => {
+    if (data.key == 66) { // 66 is the 'B' key
+        active = !active;
+        ModAPI.displayToChat("§b[PixelClient] §fAutoclicker: " + (active ? "§aON" : "§cOFF"));
+    }
+});
+
+ModAPI.addEventListener("update", () => {
+    if (active && Date.now() - lastClick >= interval) {
+        ModAPI.clickMouse();
+        lastClick = Date.now();
+    }
+});
